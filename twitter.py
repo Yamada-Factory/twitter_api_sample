@@ -100,7 +100,7 @@ class Twitter:
         while(True):
             _friends = self.get_friends_list(user_id=user_id, screen_name=screen_name, cursor=next_cursor, count='200')
             if 'users' in _friends:
-                friends.append(_friends.get['users'])
+                friends.append(_friends['users'])
             
             # friends.append(_friends['users'])
 
