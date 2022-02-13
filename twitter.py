@@ -1,3 +1,4 @@
+from asyncio.windows_events import NULL
 import time
 import hashlib
 import hmac
@@ -89,8 +90,26 @@ class Twitter:
         else:
             return None
 
-        return self.common_request(req_get_params, self.V1_GET_FRIENDS_LIST, http_method)['users']
+        return self.common_request(req_get_params, self.V1_GET_FRIENDS_LIST, http_method)
 
+    # フォローしているユーザーを全件取得する
+    def get_friends_list_all(self, user_id='', screen_name=''):
+        next_cursor = '-1'
+        friends = []
+
+        while(True):
+            _friends = self.get_friends_list(user_id=user_id, screen_name=screen_name, cursor=next_cursor, count='200')
+            if 'users' in _friends:
+                friends.append(_friends.get['users'])
+            
+            # friends.append(_friends['users'])
+
+            if 'next_cursor_str' in _friends:
+                next_cursor =  _friends['next_cursor_str']
+            else:
+                break
+        
+        return friends
 
     # ユーザ情報取得
     #
