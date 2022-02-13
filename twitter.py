@@ -71,7 +71,7 @@ class Twitter:
     # フォローしているユーザーをオブジェクトの一覧で取得する
     #
     # https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/follow-search-get-users/api-reference/get-friends-list
-    def get_friends_list(self, user_id='', screen_name='', cursor='-1', count='20'):
+    def get_friends_list(self, user_id='', screen_name='', cursor='-1', count='20') -> dict:
         http_method = 'GET'
 
         # 入力パラメータ
@@ -93,7 +93,7 @@ class Twitter:
         return self.common_request(req_get_params, self.V1_GET_FRIENDS_LIST, http_method)
 
     # フォローしているユーザーを全件取得する
-    def get_friends_list_all(self, user_id='', screen_name=''):
+    def get_friends_list_all(self, user_id='', screen_name='') -> list:
         next_cursor = '-1'
         friends = []
 
